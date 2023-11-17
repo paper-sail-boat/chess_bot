@@ -1,0 +1,46 @@
+import chess 
+from chess import Move
+import numpy as np
+board = chess.Board()
+print(board)
+
+
+
+p = 1
+k = 3
+b = 3
+r = 5
+q = 9
+
+
+
+def playmove(x):
+    board.push(x)
+    print(board)
+    print("\n")  
+
+print(len(board.pieces(chess.PAWN, chess.BLACK)))
+
+def Eval():
+    color = board.turn
+    total = len(board.pieces(chess.PAWN, color))*p + len(board.pieces(chess.KNIGHT, color))*k + len(board.pieces(chess.BISHOP, color))*b + len(board.pieces(chess.ROOK, color))*r + len(board.pieces(chess.QUEEN, color))*q
+    return total
+
+
+def moves():
+    list1 = []
+    legal = list(board.legal_moves)
+
+    for move in legal:
+        print(move)
+        playmove(move)
+        Eval()
+        list1.append(Eval())
+        board.pop()
+
+    index = np.argmax(list1)
+    move2 = legal[index]
+    playmove(move2)
+    
+moves()
+
